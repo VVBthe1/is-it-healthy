@@ -1,0 +1,77 @@
+# Phase 1 knowledge sources. kind: file = single document; listing = page of links (delta, later).
+# URLs were public when researched (Aug 2026). If one 404s, check the publisher page and update here.
+
+sources:
+  - id: dgi_2024
+    url: https://nin.res.in/dietaryguidelines/pdfjs/locale/DGI_2024.pdf
+    kind: file
+    publisher: ICMR-NIN
+    title: Dietary Guidelines for Indians 2024
+    doc_version: "2024"
+
+  - id: rda_2020_brief
+    url: https://www.nin.res.in/rdabook/brief_note.pdf
+    kind: file
+    publisher: ICMR-NIN
+    title: Nutrient Requirements for Indians (RDA/EAR) 2020 - brief note
+    doc_version: "2020"
+    enabled: false
+    note: Numeric RDA/EAR/TUL tables; goes to Postgres later. Full RDA report is a paid publication; only the brief note is public.
+
+  - id: ifct_2017
+    url: https://www.nin.res.in/ebooks/IFCT2017.pdf
+    kind: file
+    publisher: ICMR-NIN
+    title: Indian Food Composition Tables 2017
+    doc_version: "2017"
+    enabled: false
+    note: Numeric tables only; not useful in Chroma. Goes to Postgres later; structured copy at github.com/ifct2017/ifct2017.
+
+  - id: fssai_fps_fa_compendium
+    url: https://www.fssai.gov.in/upload/uploadfiles/files/Compendium_Food_Additives_Regulations_29_10_2021.pdf
+    kind: file
+    publisher: FSSAI
+    title: FSS (Food Products Standards and Food Additives) Regulations - Compendium
+    doc_version: "XVII (2021-10-29)"
+    note: Check https://fssai.gov.in/cms/Compendium-FSS-FPS-FA.php for a newer version.
+
+  - id: fssai_substances_added
+    url: https://www.fssai.gov.in/upload/uploadfiles/files/Chapter%203_Substances%20added%20to%20food.pdf
+    kind: file
+    publisher: FSSAI
+    title: Chapter 3 - Substances added to food
+    doc_version: "Version 2 (2024-11-04)"
+    enabled: false
+    note: Same additives chapter as the compendium (newer, but no Appendix A limits). Duplicates would crowd query results.
+
+  - id: fssai_labelling_2020
+    url: https://www.fssai.gov.in/upload/uploadfiles/files/Comp_Labelling.pdf
+    kind: file
+    publisher: FSSAI
+    title: FSS (Labelling and Display) Regulations 2020 - Compendium
+    doc_version: "2020"
+
+  - id: fssai_food_categories
+    url: https://foscos.fssai.gov.in/assets/docs/Compiled%20FPC_FoSCoS.pdf
+    kind: file
+    publisher: FSSAI
+    title: Food Product Categories used for Licensing/Registration
+    doc_version: unknown
+    store: postgres
+
+  # Delta sources: after phase 1.
+  - id: fssai_gazette
+    url: https://fssai.gov.in/notifications.php?notification=gazette-notification
+    kind: listing
+    publisher: FSSAI
+    title: FSSAI gazette notifications
+    doc_version: rolling
+    enabled: false
+
+  - id: fssai_advisories
+    url: https://fssai.gov.in/advisories.php
+    kind: listing
+    publisher: FSSAI
+    title: FSSAI advisories and orders
+    doc_version: rolling
+    enabled: false

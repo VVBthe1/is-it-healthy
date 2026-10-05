@@ -1,0 +1,24 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.env
+
+# AI tooling
+.cursor/
+.cursorrules
+.cursorignore
+.claude/
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.windsurf/
+.windsurfrules
+.aider*
+
+# Data: downloaded sources, vector store, local databases, logs
+src/data/
+*.sqlite3
+*.db
+*.log

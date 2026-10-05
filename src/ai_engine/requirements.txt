@@ -1,0 +1,13 @@
+alembic
+chromadb
+cryptography
+langchain-ollama
+langchain-text-splitters
+langgraph
+psycopg[binary]
+pydantic
+pypdf
+python-dotenv
+pyyaml
+requests
+sqlalchemy
