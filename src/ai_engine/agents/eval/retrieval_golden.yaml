@@ -1,0 +1,71 @@
+# Labels are (source_id, page_number). Chunk ids can come later.
+# Fill / refine with: python -m src.ai_engine.agents.eval.recall_at_k --suggest
+# Queries mirror production DETAILS_QUERY / IMPACTS_QUERY with search_name already substituted.
+
+cases:
+  - id: salt_impacts
+    query: "health risks of eating too much salt"
+    relevant:
+      - { source_id: dgi_2024, page_number: 90 }
+      - { source_id: dgi_2024, page_number: 91 }
+    notes: "Hypertension / high salt intake in DGI."
+
+  - id: sugar_impacts
+    query: "health risks of eating too much sugar"
+    relevant:
+      - { source_id: dgi_2024, page_number: 83 }
+      - { source_id: dgi_2024, page_number: 111 }
+      - { source_id: dgi_2024, page_number: 113 }
+    notes: "GI / added sugars / HFSS. Production query often misses these."
+
+  - id: palm_oil_impacts
+    query: "health risks of eating too much palm oil"
+    relevant:
+      - { source_id: dgi_2024, page_number: 70 }
+      - { source_id: dgi_2024, page_number: 110 }
+    notes: "Dietary fat guidance, not FSSAI palm-oil quality specs."
+
+  - id: sodium_benzoate_details
+    query: "what is sodium benzoate used for in food"
+    relevant:
+      - { source_id: fssai_fps_fa_compendium, page_number: 467 }
+    notes: "Preservative path (INS 211 → search_name)."
+
+  - id: sodium_benzoate_impacts
+    query: "health risks of eating too much sodium benzoate"
+    relevant:
+      - { source_id: fssai_fps_fa_compendium, page_number: 467 }
+    notes: "Spec page is the best available hit; health-risk prose is thin."
+
+  - id: lecithin_details
+    query: "what is lecithin used for in food"
+    relevant:
+      - { source_id: fssai_fps_fa_compendium, page_number: 879 }
+      - { source_id: fssai_fps_fa_compendium, page_number: 844 }
+    notes: "Emulsifier path (E322 → search_name). Distances often > MAX_DISTANCE."
+
+  - id: tartrazine_details
+    query: "what is tartrazine used for in food"
+    relevant:
+      - { source_id: fssai_fps_fa_compendium, page_number: 441 }
+    notes: "Colour additive."
+
+  - id: refined_wheat_flour_impacts
+    query: "health risks of eating too much refined wheat flour"
+    relevant:
+      - { source_id: dgi_2024, page_number: 116 }
+      - { source_id: dgi_2024, page_number: 126 }
+    notes: "UPF / refined cereals (maida → search_name)."
+
+  - id: allergen_labelling
+    query: "allergen declaration on label"
+    relevant:
+      - { source_id: fssai_labelling_2020, page_number: 20 }
+      - { source_id: fssai_labelling_2020, page_number: 19 }
+    notes: "Not a production agent template; useful probe."
+
+  - id: nonsense_additive
+    query: "health risks of eating too much xyzzyflavone"
+    relevant: []
+    expect_empty: true
+    notes: "Negative probe: after MAX_DISTANCE filter, hits should be empty."

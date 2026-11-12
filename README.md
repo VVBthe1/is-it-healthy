@@ -59,7 +59,7 @@ src/
     raw/                  downloaded PDFs (git-ignored)
     chroma/               Chroma data (git-ignored)
 architecture/             design docs
-docker-compose.yml        Postgres, OCR, Ollama (optional)
+docker-compose.yml        Postgres, Chroma, OCR, Ollama (optional)
 ```
 
 ## Setup
@@ -77,24 +77,7 @@ cp .env.example .env      # then set a password in .env
 
 ## Knowledge base
 
-### 1. Start Chroma
-
-In its own terminal; leave it running.
-
-```bash
-source venv/bin/activate
-chroma run --path src/data/knowledge/chroma --port 8000
-```
-
-Check it's up:
-
-```bash
-curl http://localhost:8000/api/v2/heartbeat
-```
-
-### 2. Start Postgres
-
-Also builds and starts the OCR service.
+### 1. Start Postgres, Chroma, and OCR
 
 ```bash
 docker compose up -d
@@ -102,7 +85,13 @@ alembic -c src/ai_engine/alembic.ini upgrade head
 alembic -c src/backend/alembic.ini upgrade head
 ```
 
-### 3. Build
+Chroma is on port 8000 and keeps data under `src/data/knowledge/chroma` (same folder as before). Check it's up:
+
+```bash
+curl http://localhost:8000/api/v2/heartbeat
+```
+
+### 2. Build
 
 ```bash
 python -m src.ai_engine.knowledge_base.run                                  # all enabled sources
@@ -131,7 +120,7 @@ Empty pages: 4, Source: dgi_2024
 
 The first build downloads the embedding model (~80 MB) to `~/.cache/chroma/`. Re-running a build is safe: Chroma chunks and Postgres rows are overwritten, not duplicated.
 
-### 4. Query Chroma
+### 3. Query Chroma
 
 ```bash
 python -m src.ai_engine.knowledge_base.run --query "salt intake per day"
@@ -150,7 +139,7 @@ Returns the five closest chunks with their source and page. Example (text shorte
 
 `distance`: lower is closer. Use it to rank results, not as a confidence score.
 
-### 5. Query Postgres
+### 4. Query Postgres
 
 ```bash
 docker compose exec postgres psql -U healthy -d healthy
@@ -176,7 +165,7 @@ select * from path;
 
 Category codes are written without leading zeros (`1.1.2`), the same as FSSAI Appendix A.
 
-### 6. Remove a source from Chroma
+### 5. Remove a source from Chroma
 
 Disabling a source in `sources.yaml` stops future builds; chunks already stored stay until deleted:
 
